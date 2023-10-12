@@ -15,7 +15,7 @@ const createSkill = asyncHandler(async (req, res) => {
 
     if(!title || !imageUrl) return res.status(400).json({message: "All fields are required"})
 
-    const duplicate = await Skill.findOne({title}).exec()
+    const duplicate = await Skill.findOne({title}).collation({locale: 'en', strength: 2}).lean().exec()
 
     if(duplicate) return res.status(409).json({message: "Skill already exist"})
 

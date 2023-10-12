@@ -16,9 +16,9 @@ const createUser = asyncHandler(async (req, res) => {
 
     if(!username || !password) return res.status(400).json({message: "Username and password are required"})
 
-    const duplicate = await User.findOne({username}).exec()
+    const duplicate = await User.findOne({username}).collation({locale: 'en', strength: 2}).lean().exec()
 
-    if(duplicate) return res.sendStatus(409)
+    if(duplicate) return res.status(409).json({message: "username already exist"})
 
     try{
         const hashPwd = await bcrypt.hash(password, 10)
@@ -45,6 +45,13 @@ const updateUser = asyncHandler( async(req, res) => {
 
     if(!foundUser) return res.status(204).json({message: 'No user found'})
 
+    // check for duplicate
+    const duplicate  = await User.findOne({username}).collation({locale: 'en', strength: 2}).lean().exec()
+    //using collation makes our search case sensitive
+
+    if(duplicate && duplicate?._id !== id){
+        return res.status(409).json({message: 'Duplicate username'})
+    }
     if(username) foundUser.username = username
     if(password){
         const hashPwd = await bcrypt.hash(password, 10)

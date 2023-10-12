@@ -15,7 +15,7 @@ const creatProject =asyncHandler( async (req, res) => {
 
     if(!title || !description || !stacks.length || !github || !imageUrl) return res.status(400).json({message: "All fields are required"})
 
-    const duplicate = await Project.findOne({title}).exec()
+    const duplicate = await Project.findOne({title}).collation({locale: 'en', strength: 2}).lean().exec()
 
     if(duplicate) return res.status(409).json({message: "Project with title already exist"})
 
@@ -50,9 +50,9 @@ const updateProject = asyncHandler( async (req, res) => {
     if(!project) return res.status(404).json({message: "No project with ID"})
 
     // check for title duplicate
-    const titleDuplicate = await Project.findOne({title}).exec()
+    const titleDuplicate = await Project.findOne({title}).collation({locale: 'en', strength: 2}).lean().exec()
 
-    if(titleDuplicate && titleDuplicate.title !== project?.title) return res.status(409).json({message: "Title already exist"})
+    if(titleDuplicate && titleDuplicate._id !== id) return res.status(409).json({message: "Title already exist"})
 
     project.title = title
     project.description = description

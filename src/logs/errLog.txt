@@ -29,3 +29,5 @@
 20231011	07:10:30	c60c9410-dde8-4664-a820-98541844fd25	MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rrncwv5-shard-00-02.yhxnyhd.mongodb.net	GET	/projects
 20231011	07:10:30	56963ba2-9f1f-4e70-be24-8e6feb9377f3	MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rrncwv5-shard-00-02.yhxnyhd.mongodb.net	GET	/skills
 20231011	07:10:27	9479a454-c114-46b1-bb4f-753f3ce6e01a	MongoServerSelectionError: getaddrinfo ENOTFOUND ac-rrncwv5-shard-00-02.yhxnyhd.mongodb.net	GET	/projects
+20231012	14:10:58	a90164df-74f0-4631-acfa-e028b784f575	Error: Not allowed by CORS	GET	/
+20231012	14:10:58	6fd48425-2a39-4af3-a78c-3fd928d47e60	Error: Not allowed by CORS	GET	/favicon.ico
